@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papelería Importante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #0839ea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #FFC107;
+            color: black;
+        }
+        form, .search-options, .folder-list {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+        select, input, textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .folder-item {
+            background: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 5px solid #0839ea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Papelería Importante</h2>
+
+        <!-- Este div solo se muestra al entrar -->
+        <div id="botonesInicio">
+            <button onclick="mostrarFormularioAgregar()">Agregar</button>
+            <button onclick="mostrarBusqueda()">Buscar</button>
+        </div>
+
+        <!-- Formulario de agregar datos -->
+        <form id="formAgregar" method="post" action="https://script.google.com/macros/s/AKfycbxmmyNLxSVj9QDL_pH-aTCSi-k0gGW69DzPznmKWy5xquKB_Sau7NqFjhtktcxmFodwYw/exec">
+            <input type="hidden" name="formulario" value="papeleria">
+            <label>Escritorio:</label>
+            <select name="escritorio">
+                <option value="">Seleccione el escritorio</option>
+                <option>Escritorio1</option>
+                <option>Escritorio2</option>
+                <option>Escritorio3</option>
+            </select>
+
+            <label>Número de gaveta:</label>
+            <select name="gaveta">
+                <option value="">Seleccione la gaveta</option>
+                <option>Gaveta1</option>
+                <option>Gaveta2</option>
+                <option>Gaveta3</option>
+                <option>Gaveta4</option>
+                <option>Gaveta5</option>
+            </select>
+
+            <label>Número de folder:</label>
+            <input type="number" name="folder" required>
+
+            <label>Contenido:</label>
+            <textarea name="contenido" required></textarea>
+
+            <button type="submit">Guardar</button>
+        </form>
+
+        <!-- Opciones de búsqueda -->
+        <div id="busquedaOpciones" class="search-options">
+            <h3>Buscar por escritorio:</h3>
+            <button onclick="buscarPorEscritorio('Escritorio1')">Escritorio 1</button>
+            <button onclick="buscarPorEscritorio('Escritorio2')">Escritorio 2</button>
+            <button onclick="buscarPorEscritorio('Escritorio3')">Escritorio 3</button>
+            <h3>O buscar por nombre de documento:</h3>
+            <input type="text" id="busquedaNombre" placeholder="Buscar por nombre">
+            <button onclick="buscarPorNombre()">Buscar</button>
+        </div>
+
+        <!-- Resultados de la búsqueda -->
+        <div id="resultadoBusqueda" class="folder-list"></div>
+    </div>
+
+    <script>
+        function mostrarFormularioAgregar() {
+            document.getElementById("formAgregar").style.display = "block";
+            document.getElementById("busquedaOpciones").style.display = "none";
+            document.getElementById("resultadoBusqueda").style.display = "none";
+        }
+
+        function mostrarBusqueda() {
+            document.getElementById("formAgregar").style.display = "none";
+            document.getElementById("busquedaOpciones").style.display = "block";
+            document.getElementById("resultadoBusqueda").style.display = "none";
+        }
+
+        function buscarPorEscritorio(escritorio) {
+            const url = `https://script.google.com/macros/s/AKfycbw0UXo7E10OyDqhbsfB4pkc-ahbXL9wMfAk4t_jzo9UVgSjR0T6UXKtguEOBIT4UHBV2g/exec?formulario=papeleria&escritorio=${escritorio}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultado = document.getElementById("resultadoBusqueda");
+                    resultado.innerHTML = "";
+
+                    if (data.length > 0) {
+                        data.forEach(item => {
+                            const div = document.createElement('div');
+                            div.classList.add('folder-item');
+                            div.innerHTML = `Escritorio: ${item.escritorio} | Gaveta: ${item.gaveta} | Folder: ${item.folder} | Contenido: ${item.contenido} | Fecha: ${item.fecha}`;
+                            resultado.appendChild(div);
+                        });
+                    } else {
+                        resultado.innerHTML = "<p>No se encontraron resultados.</p>";
+                    }
+
+                    resultado.style.display = "block";
+                })
+                .catch(error => console.error("Error en la búsqueda:", error));
+        }
+
+        function buscarPorNombre() {
+            const nombre = document.getElementById("busquedaNombre").value;
+            const url = `https://script.google.com/macros/s/AKfycbw0UXo7E10OyDqhbsfB4pkc-ahbXL9wMfAk4t_jzo9UVgSjR0T6UXKtguEOBIT4UHBV2g/exec?formulario=papeleria&nombre=${nombre}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultado = document.getElementById("resultadoBusqueda");
+                    resultado.innerHTML = "";
+
+                    if (data.length > 0) {
+                        data.forEach(item => {
+                            const div = document.createElement('div');
+                            div.classList.add('folder-item');
+                            div.innerHTML = `Escritorio: ${item.escritorio} | Gaveta: ${item.gaveta} | Folder: ${item.folder} | Contenido: ${item.contenido} | Fecha: ${item.fecha}`;
+                            resultado.appendChild(div);
+                        });
+                    } else {
+                        resultado.innerHTML = "<p>No se encontraron resultados.</p>";
+                    }
+
+                    resultado.style.display = "block";
+                })
+                .catch(error => console.error("Error en la búsqueda:", error));
+        }
+    </script>
+</body>
+</html>

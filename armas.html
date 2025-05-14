@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Armas-</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+        
+        <style>
+
+            body { /*Fondo del Formulairo*/
+                font-family: 'Poppins', sans-serif;
+                background-color: #1e5fa0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 100vh;
+                margin: 5;               
+                text-align: center;
+                overflow-x: hidden;
+            }
+
+            .navbar {
+                width: 100%; /* Esto hace que ocupe todo el ancho de la pantalla */
+                background: #FFC107;
+                padding: 10px;
+                text-align: center;
+                box-shadow: 1px 4px 6px rgba(10, 10, 10, 0.1); /* Corrige el valor de opacidad */
+                position: absolute; /* Para que se quede fija en la parte superior */
+                top: 0; /* Ajusta la barra a la parte superior */
+                left: 0; /* Asegura que ocupe todo el ancho */
+            }
+
+
+            .navbar a {/* Letras de la Franja*/
+                color: #000000;
+                text-decoration: none;
+                margin: 0 20px;
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+            .navbar a:hover {
+                text-decoration: underline;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(17, 255, 9, 0.3);
+                width: 90%; /* Aumenta el ancho relativo */
+                max-width: 1000px; /* Aumenta el ancho máximo permitido */
+                margin-top: 70px;
+                color: rgb(0, 0, 0);
+                text-align: center;
+                background: #ffffff;
+            }
+
+
+            h2 {
+                text-align: center;
+                font-weight: 600;
+            }
+
+            input, select, button, textarea {/* Tamañno y forma de los formularios*/
+                width: 95%;
+                padding: 10px;
+                margin: 8px 0;
+                border: 2px solid  #FFC107;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+
+            button {
+                background: #0839ea;
+                color: rgb(255, 255, 255);
+                border: none;
+                cursor: pointer;
+                font-size: 14px;
+                padding: 10px;
+                border-radius: 8px;
+                transition: 0.5s;
+                width: 200px;
+                
+            }
+
+            button:hover { /*Cuando se selecciona el boton*/
+                background-color: #FFC107;
+                color: rgb(0, 0, 0);                
+            }         
+
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+                
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: white;
+                min-width: 200px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+                padding: 10px;
+                border-radius: 5px;
+            }
+                
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+                
+            label {
+                display: block;
+                cursor: pointer;
+            }
+                
+            .selected-items {
+                display: block;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <link rel="icon" href="https://www.cohep.org/wp-content/uploads/2022/11/logo-cohep-300x214.png" type="image/x-icon"> 
+        
+        <div class="navbar">          
+            <a href="Protocolo_Empresarial.html">Pagina Principal</a>                           
+        </div>
+        
+        
+        <div class="container">
+            
+            <div id="formArmas" class="seccion">
+                <h2>Formulario Armas</h2>
+                <form method="post" action="https://script.google.com/macros/s/AKfycbxD4MIUYEuKwYqqwKE-rJxi3MKMKU8F3EnccIvn2lxte55qfdg6WrQjHPDkxzw7T6zZYQ/exec">
+                    <input type="hidden" name="formulario" value="armas">
+                    
+                    <label>Tipo de Arma:</label>
+                    <select name="arma">
+                    <option value="" disabled selected hidden>Seleccion de Arma</option>
+                    <option>Escopeta</option>
+                    <option>Revolver</option>
+                    <option>38</option>
+                    <option>39</option>
+                    </select>
+            
+                    <label>Puesto asignado:</label>
+                    <select name="puesto">
+                    <option value="" disabled selected hidden>Seleccion de Puesto</option>
+                    <option>Halcón 1</option>
+                    <option>Halcón 2</option>
+                    <option>Halcón 3</option>
+                    </select>
+            
+                    <label>Nuemero de serie:</label>
+                    <input name="serie" type="text" placeholder="Número">
+                                                                                                                            
+                    <button type="submit">Guardar Información</button>                                                        
+                </form>           
+            </div>         
+        </div>
+       
+    </body>
+</html>
